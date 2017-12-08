@@ -16,7 +16,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+}
+
     //AFHTTP3.0
+-(void)requestNetwork{
+    
     AFHTTPSessionManager * manger = [AFHTTPSessionManager manager];
 
     manger.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -29,18 +35,20 @@
     }];
 
 }
+-(void)requestAFHTTPTextHtml{
+    
+     AFHTTPSessionManager * manger = [AFHTTPSessionManager manager];
+     manger.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+     [manger GET:@"http://apiinfoios.ydbimg.com/Default.aspx?type=app&id=13421" parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+     NSLog(@"%@",responseObject);
+     
+     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+     NSLog(@"%@",error);
+     }];
+    
+}
+//AFHTTP2.*
 -(void)request{
-    /*
-    AFHTTPSessionManager * manger = [AFHTTPSessionManager manager];
-    manger.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    [manger GET:@"http://apiinfoios.ydbimg.com/Default.aspx?type=app&id=13421" parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
-        NSLog(@"%@",responseObject);
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"%@",error);
-    }];
-    */
-    //AFHTTP2.*
     AFHTTPRequestOperationManager * manger = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     manger.responseSerializer.acceptableContentTypes =[NSSet setWithObjects:@"application/json",@"text/json",@"text/javascript",@"text/html",nil];
@@ -52,12 +60,6 @@
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];
-}
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
